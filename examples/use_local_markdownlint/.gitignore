@@ -1,0 +1,4 @@
+bazel-bin
+bazel-use_local_markdownlint
+bazel-out
+bazel-testlogs

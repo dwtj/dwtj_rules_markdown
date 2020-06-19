@@ -1,0 +1,4 @@
+bazel-bin
+bazel-dwtj_rules_markdown
+bazel-out
+bazel-testlogs
