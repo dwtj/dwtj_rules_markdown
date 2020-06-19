@@ -1,0 +1,8 @@
+{
+  "name": "third_party_npm_markdownlint_cli",
+  "version": "0.0.1",
+  "dependencies": {
+    "markdownlint-cli": "^0.23.1",
+    "pkg": "^4.4.8"
+  }
+}

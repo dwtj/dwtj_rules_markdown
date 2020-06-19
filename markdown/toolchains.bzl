@@ -1,0 +1,2 @@
+def register_known_toolchain_instances():
+    native.register_toolchains("@me_dwtj_rules_markdown//markdown/toolchains/lint/known_toolchain_instances/remote/nodejs_markdownlint_cli/x86_64/linux:toolchain")

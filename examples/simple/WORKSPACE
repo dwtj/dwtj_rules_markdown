@@ -1,0 +1,6 @@
+workspace(name = "examples_simple")
+
+local_repository(
+    name = "me_dwtj_rules_markdown",
+    path = "../..",
+)
