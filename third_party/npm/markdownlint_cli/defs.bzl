@@ -47,10 +47,23 @@ def markdownlint_binary(
         target_arch
     )
 
+    # NOTE(dwtj): The naming of "package", "bin" and "pkg" is a bit confusing.
+    #  Here's some clarification. This rule kind, `npm_package_bin`, executes
+    #  a Node program during the the Bazel build phase. It can execute a Node
+    #  programs declared as a "bin" in an NPM package's `package.json` file.
+    #  Somewhat confusingly, the particular Node program run by this rule
+    #  instance is named `pkg`, and it is defined in the NPM package `pkg`.
     npm_package_bin(
         name = name,
         tool = "@npm//pkg/bin:pkg",
-        data = ["@npm//markdownlint-cli"],
+        data = [
+            # We are compiling `markdown-cli` to a binary.
+            "@npm//markdownlint-cli",
+            # Our compiler, `pkg`, calls `ldd` to find out if the host is Alpine
+            #  linux. But, bazel doesn't include `ldd` in the build action's
+            #  sandbox.
+            "@local_ldd//:ldd",
+        ],
         outs = [output],
         args = [
             '--target', target,

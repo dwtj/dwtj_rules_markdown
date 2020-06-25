@@ -53,11 +53,11 @@ def make_default_markdown_lint_toolchain_for_platform_os(platform_os):
     
     markdown_lint_toolchain(
         name = "markdown_lint_toolchain",
-        markdown_lint_tool = ":markdownlint",
+        markdown_lint_tool = ":markdown_lint_tool",
     )
     
     markdownlint_binary(
-        name = "markdownlint",
+        name = "markdown_lint_tool",
         target_node_version = "latest",
         target_platform = _SUPPORTED_PLATFORM_OSES[platform_os],
         target_arch = "x64",
