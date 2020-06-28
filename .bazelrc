@@ -1,0 +1,8 @@
+# Allow `pkg` to see `PATH` so that it can call `ldd`. See:
+#     https://github.com/vercel/pkg-fetch/blob/9f13288449ac8d44841cf9dfed39233ed87af169/lib/system.js#L44
+build --action_env=PATH=/usr/bin
+
+# Allow `pkg` to download things which it needs. (The sandbox normally prevents this.)
+build --spawn_strategy=local
+
+build --aspects //markdown:defs.bzl%markdown_lint_aspect

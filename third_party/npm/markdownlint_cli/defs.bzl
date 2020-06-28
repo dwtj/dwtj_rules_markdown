@@ -32,16 +32,20 @@ KNOWN_TARGET_ARCHS = [
     'armv7',
 ]
 
+# Compile `markdownlint-cli` to a binary for the given target platform &
+# architecture using the Node.js tool `pkg`.
 def markdownlint_binary(
     name,
     target_node_version,
     target_platform,
-    target_arch,
-    output = 'markdownlint'):
+    target_arch):
 
+    # TODO(dwtj): Consider letting the user name the output binary. Currently,
+    #  it is hardcoded to `markdownlint`.
     # TODO(dwtj): Check that each given target argument is known.
+    # TODO(dwtj): Warn if the given `target_node_version` is unknown.
 
-    target = 'node{}-{}-{}'.format(
+    target = '{}-{}-{}'.format(
         target_node_version,
         target_platform,
         target_arch
@@ -59,17 +63,18 @@ def markdownlint_binary(
         data = [
             # We are compiling `markdown-cli` to a binary.
             "@npm//markdownlint-cli",
-            # Our compiler, `pkg`, calls `ldd` to find out if the host is Alpine
-            #  linux. But, bazel doesn't include `ldd` in the build action's
-            #  sandbox.
-            "@local_ldd//:ldd",
+            '@npm//:node_modules/markdownlint-cli/package.json'
         ],
-        outs = [output],
+        outs = ["markdownlint"],
         args = [
             '--target', target,
-            '--output', output,
-            'external/npm/markdownlint_cli/bin'
-            # TODO(dwtj): Figure out the path to the `package.json` of 
-            #  `markdownlint-cli`.
+            '--output', '$(execpath :markdownlint)',
+            '$(execpath @npm//:node_modules/markdownlint-cli/package.json)'
         ],
+        # Allow `pkg` to see `PATH` so that it can call `ldd`. See:
+        #     https://github.com/vercel/pkg-fetch/blob/9f13288449ac8d44841cf9dfed39233ed87af169/lib/system.js#L44
+        configuration_env_vars = [
+            'PATH',
+        ],
+
     )

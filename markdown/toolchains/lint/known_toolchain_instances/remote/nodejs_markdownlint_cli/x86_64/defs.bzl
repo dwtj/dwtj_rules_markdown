@@ -8,9 +8,9 @@ load("//third_party/npm/markdownlint_cli:defs.bzl", "markdownlint_binary")
 # tool (from NPM).
 _SUPPORTED_PLATFORM_OSES = {
     "@platforms//os:linux": "linux",
-    "@platforms//os:macos": "macos",
-    "@platforms//os:windows": "windows",
-    "@platforms//os:freebsd": "freebsd",
+    #"@platforms//os:macos": "macos",
+    #"@platforms//os:windows": "windows",
+    #"@platforms//os:freebsd": "freebsd",
 }
 
 def make_default_markdown_lint_toolchain_for_platform_os(platform_os):

@@ -50,9 +50,6 @@ yarn_install(
     yarn_lock = "//third_party/npm:yarn.lock",
 )
 
-load("//bazel/local_tool_repository_rule:defs.bzl", "local_tool")
+load("//markdown:toolchains.bzl", "register_known_toolchain_instances")
 
-local_tool(
-    name = "local_ldd",
-    tool_name = "ldd",
-)
+register_known_toolchain_instances()
