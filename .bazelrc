@@ -2,7 +2,12 @@
 #     https://github.com/vercel/pkg-fetch/blob/9f13288449ac8d44841cf9dfed39233ed87af169/lib/system.js#L44
 build --action_env=PATH=/usr/bin
 
-# Allow `pkg` to download things which it needs. (The sandbox normally prevents this.)
+# Allow `pkg` to download its "base binaries" (i.e. precompiled patched Node).
+#  The default location for these downloads is `~/.pkg-cache`, so the sandbox
+#  normally prevents these downloads. These binaries are downloaded from here:
+#  https://github.com/vercel/pkg-fetch/releases
+# TODO(dwtj): Use PKG_CACHE_PATH environment variable to put base binaries
+#  inside the sandbox. See: https://github.com/vercel/pkg-fetch/blob/9f13288449ac8d44841cf9dfed39233ed87af169/lib/places.js#L8
 build --spawn_strategy=local
 
 build --aspects //markdown:defs.bzl%markdown_lint_aspect
