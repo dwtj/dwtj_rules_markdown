@@ -53,19 +53,15 @@ def _markdownlint_aspect_impl(target, aspect_ctx):
         outputs = [output_file],
         mnemonic = "MarkdownLint",
         use_default_shell_env = False,
-        # TODO(dwtj): Remove this progress message. It is just here temporarily
-        #  for debugging.
-        progress_message = "Linting markdown files...",
     )
 
     return [
-        OutputGroupInfo(markdownlint_logs = [output_file]),
+        OutputGroupInfo(default = [output_file]),
         MarkdownLintAspectInfo(output_file = output_file),
     ]
 
 markdownlint_aspect = aspect(
     implementation = _markdownlint_aspect_impl,
-    # TODO(dwtj): Try adding output attr.
     provides = [MarkdownLintAspectInfo],
     toolchains = ['@dwtj_rules_markdown//markdown/toolchains/markdownlint:toolchain_type'],
 )

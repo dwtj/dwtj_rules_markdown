@@ -55,7 +55,7 @@ markdown_library(
 Add this to your workspace's `.bazelrc` file:
 
 ```bazelrc
-build --aspects @dwtj_rules_markdown//markdown:defs.bzl%markdownlint_aspect --output_groups=markdownlint_logs
+build --aspects @dwtj_rules_markdown//markdown:defs.bzl%markdownlint_aspect
 ```
 
 ### Step 4. Add A Markdown Lint Toolchain
