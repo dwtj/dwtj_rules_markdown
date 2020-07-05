@@ -1,10 +1,13 @@
 '''Defines the `markdown_library` Bazel rule.
 '''
 
+load('//markdown/private:constants.bzl', 'SUPPORTED_MARKDOWNLINT_CONFIG_FILE_EXTENSIONS')
+
 MarkdownInfo = provider(
     fields = [
         'direct_source_files',
         'transitive_source_files',
+        'markdownlint_config_file',
     ],
 )
 
@@ -16,11 +19,12 @@ def _build_transitive_source_files_depset(srcs, deps):
 
 def _markdown_library_impl(ctx):
     return MarkdownInfo(
-        direct_source_files = ctx.files.srcs,
+        direct_source_files = depset(ctx.files.srcs),
         transitive_source_files = _build_transitive_source_files_depset(
             srcs = ctx.files.srcs,
             deps = ctx.attr.deps,
         ),
+        markdownlint_config_file = ctx.file.markdownlint_config,
     )
 
 markdown_library = rule(
@@ -34,6 +38,11 @@ markdown_library = rule(
         'deps': attr.label_list(
             providers = [MarkdownInfo],
             doc = 'A list of labels providing `MarkdownInfo`. Usually, this is a list of names of `markdown_library` instances.'
-        )
+        ),
+        'markdownlint_config': attr.label(
+            default = None,
+            allow_single_file = SUPPORTED_MARKDOWNLINT_CONFIG_FILE_EXTENSIONS,
+            doc = 'A `markdownlint` config file to use for linting `srcs`. This overrides a default config file provided from the `markdownlint` toolchain.'
+        ),
     },
 )
