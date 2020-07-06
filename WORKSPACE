@@ -4,7 +4,7 @@ load('@dwtj_rules_markdown//markdown:defs.bzl', 'local_markdownlint_external_rep
 
 local_markdownlint_external_repository(
     name = 'local_markdownlint',
-    config = '//:default_markdownlint_config.json',
+    config = '//:.markdownlint.json',
 )
 
 load('@local_markdownlint//:defs.bzl', 'register_local_markdownlint_toolchain')
