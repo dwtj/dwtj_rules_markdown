@@ -5,14 +5,7 @@ Markdown lint toolchain instances are created by writing
 '''
 
 load('//markdown:private/common/constants.bzl', 'SUPPORTED_MARKDOWNLINT_CONFIG_FILE_EXTENSIONS')
-
-MarkdownlintToolchainInfo = provider(
-    fields = [
-        "node_executable",
-        "markdownlint_executable",
-        "config_file",
-    ],
-)
+load("//markdown:private/providers/MarkdownlintToolchainInfo.bzl", "MarkdownlintToolchainInfo")
 
 def _markdownlint_toolchain_impl(ctx):
     toolchain_info = platform_common.ToolchainInfo(

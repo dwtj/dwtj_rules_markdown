@@ -4,14 +4,8 @@ This aspect adds a lint as an action to `markdown` targets. The lint is
 performed by the lint tool provided by the selected `markdown_lint_toolchain`.
 '''
 
-load("@dwtj_rules_markdown//markdown:private/rules/markdown_library/defs.bzl", "MarkdownInfo")
-
-MarkdownLintAspectInfo = provider(
-    fields = {
-        # Will be `None` if the target can't be or shouldn't be linted.
-        'output_file': 'The lint report file produced by `markdownlint`.',
-    }
-)
+load("@dwtj_rules_markdown//markdown:private/providers/MarkdownInfo.bzl", "MarkdownInfo")
+load("@dwtj_rules_markdown//markdown:private/providers/MarkdownlintAspectInfo.bzl", "MarkdownlintAspectInfo")
 
 def _target_provides_markdown_info(target):
     return MarkdownInfo in target
@@ -25,7 +19,7 @@ def _output_file_name_of(target):
 def _markdownlint_aspect_impl(target, aspect_ctx):
     # Skip a target if it doesn't provide `MarkdownInfo`:
     if not _target_provides_markdown_info(target):
-        return [MarkdownLintAspectInfo()]
+        return [MarkdownlintAspectInfo()]
 
     # Extract information from the toolchain:
     toolchain = aspect_ctx.toolchains['@dwtj_rules_markdown//markdown/toolchains/markdownlint:toolchain_type']
@@ -76,11 +70,11 @@ def _markdownlint_aspect_impl(target, aspect_ctx):
 
     return [
         OutputGroupInfo(default = [output_file]),
-        MarkdownLintAspectInfo(output_file = output_file),
+        MarkdownlintAspectInfo(output_file = output_file),
     ]
 
 markdownlint_aspect = aspect(
     implementation = _markdownlint_aspect_impl,
-    provides = [MarkdownLintAspectInfo],
+    provides = [MarkdownlintAspectInfo],
     toolchains = ['@dwtj_rules_markdown//markdown/toolchains/markdownlint:toolchain_type'],
 )

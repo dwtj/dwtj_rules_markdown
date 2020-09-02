@@ -6,14 +6,7 @@ load(
     'SUPPORTED_MARKDOWN_FILE_EXTENSIONS',
     'SUPPORTED_MARKDOWNLINT_CONFIG_FILE_EXTENSIONS',
 )
-
-MarkdownInfo = provider(
-    fields = [
-        'direct_source_files',
-        'transitive_source_files',
-        'markdownlint_config_file',
-    ],
-)
+load("//markdown:private/providers/MarkdownInfo.bzl", "MarkdownInfo")
 
 def _build_transitive_source_files_depset(srcs, deps):
     return depset(
