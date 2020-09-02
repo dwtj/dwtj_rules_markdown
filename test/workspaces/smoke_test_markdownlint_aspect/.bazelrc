@@ -1,0 +1,1 @@
+build --aspects @dwtj_rules_markdown//markdown:aspects.bzl%markdownlint_aspect
