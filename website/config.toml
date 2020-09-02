@@ -1,0 +1,19 @@
+baseURL = "https://dwtj.github.io/dwtj_rules_markdown"
+title = "Somebody's Bazel Markdown Rules"
+
+[params]
+  AuthorName = "David Johnston"
+  GitHubUser = "dwtj"
+  GitHubUserPortraitUrl = "https://avatars0.githubusercontent.com/u/2457848?s=400&u=e0cfa4b84f65f4fb6f73e6bc39762d82b85cb58c&v=4"
+  Subtitle = "Bazel rules for managing Markdown files"
+  CopyrightHolder = "David Johnston"
+  CopyrightYears = "2020"
+
+[markup.goldmark.renderer]
+# Allow "unsafe" Markdown rendering to ensure that the raw HTML in
+# Stardoc-generated content is included in the resulting HTML. Otherwise, raw
+# HTML elements can get [replaced][1] [with HTML comments][2].
+#
+# [1]: https://discourse.gohugo.io/t/raw-html-getting-omitted-in-0-60-0/22032
+# [2]: https://gohugo.io/news/0.60.0-relnotes/
+unsafe = true
