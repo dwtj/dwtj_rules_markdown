@@ -4,7 +4,7 @@ This aspect adds a lint as an action to `markdown` targets. The lint is
 performed by the lint tool provided by the selected `markdown_lint_toolchain`.
 '''
 
-load("@dwtj_rules_markdown//markdown/rules/markdown_library:defs.bzl", "MarkdownInfo")
+load("@dwtj_rules_markdown//markdown:private/rules/markdown_library/defs.bzl", "MarkdownInfo")
 
 MarkdownLintAspectInfo = provider(
     fields = {

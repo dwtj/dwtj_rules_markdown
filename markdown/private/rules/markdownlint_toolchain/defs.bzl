@@ -4,7 +4,7 @@ Markdown lint toolchain instances are created by writing
 `markdownlint_toolchain` rule instances.
 '''
 
-load('//markdown/private:constants.bzl', 'SUPPORTED_MARKDOWNLINT_CONFIG_FILE_EXTENSIONS')
+load('//markdown:private/common/constants.bzl', 'SUPPORTED_MARKDOWNLINT_CONFIG_FILE_EXTENSIONS')
 
 MarkdownlintToolchainInfo = provider(
     fields = [

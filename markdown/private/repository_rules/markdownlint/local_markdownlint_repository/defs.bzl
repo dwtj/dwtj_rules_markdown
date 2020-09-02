@@ -3,10 +3,7 @@ symlink to a local `markdownlint` binary and some boilerplate to use it as part
 of a `markdownlint_toolchain` instance.
 """
 
-load(
-    '@dwtj_rules_markdown//markdown/private:constants.bzl',
-    'SUPPORTED_MARKDOWNLINT_CONFIG_FILE_EXTENSIONS'
-)
+load('@dwtj_rules_markdown//markdown:private/common/constants.bzl', 'SUPPORTED_MARKDOWNLINT_CONFIG_FILE_EXTENSIONS')
 
 # This is the name used for the config file *within* this external repository.
 _CONFIG_FILE = 'markdownlint_config.json'
@@ -98,11 +95,11 @@ local_markdownlint_repository = repository_rule(
         #  interpreted as paths relative to the external repository's root.
         '_build_file_template': attr.label(
             allow_single_file = True,
-            default = '@dwtj_rules_markdown//markdown/repository_rules/markdownlint/local_markdownlint_repository:template.BUILD',
+            default = '@dwtj_rules_markdown//markdown:private/repository_rules/markdownlint/local_markdownlint_repository/TEMPLATE.BUILD',
         ),
         '_defs_bzl_file_template': attr.label(
             allow_single_file = True,
-            default = '@dwtj_rules_markdown//markdown/repository_rules/markdownlint/local_markdownlint_repository:template.defs.bzl',
+            default = '@dwtj_rules_markdown//markdown:private/repository_rules/markdownlint/local_markdownlint_repository/TEMPLATE.defs.bzl',
         ),
     },
     environ = [

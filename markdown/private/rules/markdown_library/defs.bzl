@@ -1,7 +1,11 @@
 '''Defines the `markdown_library` Bazel rule.
 '''
 
-load('//markdown/private:constants.bzl', 'SUPPORTED_MARKDOWNLINT_CONFIG_FILE_EXTENSIONS')
+load(
+    '//markdown:private/common/constants.bzl',
+    'SUPPORTED_MARKDOWN_FILE_EXTENSIONS',
+    'SUPPORTED_MARKDOWNLINT_CONFIG_FILE_EXTENSIONS',
+)
 
 MarkdownInfo = provider(
     fields = [
@@ -32,12 +36,12 @@ markdown_library = rule(
     attrs = {
         'srcs': attr.label_list(
             allow_empty = False,
-            allow_files = ['.md', '.markdown'],
+            allow_files = SUPPORTED_MARKDOWN_FILE_EXTENSIONS,
             doc = 'A list of Markdown source files to be included.'
         ),
         'deps': attr.label_list(
             providers = [MarkdownInfo],
-            doc = 'A list of labels providing `MarkdownInfo`. Usually, this is a list of names of `markdown_library` instances.'
+            doc = 'A list of labels providing `MarkdownInfo` (e.g. `markdown_library` target labels).'
         ),
         'markdownlint_config': attr.label(
             default = None,
