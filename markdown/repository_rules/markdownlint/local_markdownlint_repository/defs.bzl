@@ -70,7 +70,7 @@ def _local_markdownlint_external_repository_impl(repository_ctx):
         executable = False,
     )
 
-local_markdownlint_external_repository = repository_rule(
+local_markdownlint_repository = repository_rule(
     implementation = _local_markdownlint_external_repository_impl,
     local = True,
     attrs = {
@@ -98,11 +98,11 @@ local_markdownlint_external_repository = repository_rule(
         #  interpreted as paths relative to the external repository's root.
         '_build_file_template': attr.label(
             allow_single_file = True,
-            default = '@dwtj_rules_markdown//markdown/repository_rules/markdownlint/local_markdownlint_external_repository:template.BUILD',
+            default = '@dwtj_rules_markdown//markdown/repository_rules/markdownlint/local_markdownlint_repository:template.BUILD',
         ),
         '_defs_bzl_file_template': attr.label(
             allow_single_file = True,
-            default = '@dwtj_rules_markdown//markdown/repository_rules/markdownlint/local_markdownlint_external_repository:template.defs.bzl',
+            default = '@dwtj_rules_markdown//markdown/repository_rules/markdownlint/local_markdownlint_repository:template.defs.bzl',
         ),
     },
     environ = [

@@ -8,7 +8,7 @@
 # This rule instance defines the target with the `MarkdownlintInfo` provider.
 # Effectively, it just encapsulates a string which points to the symlink at the
 # root of this external repository.
-load("@dwtj_rules_markdown//markdown:defs.bzl", "markdownlint_toolchain")
+load("@dwtj_rules_markdown//markdown:toolchains.bzl", "markdownlint_toolchain")
 markdownlint_toolchain(
     name = "_toolchain",
     node_executable = ":{NODE_EXECUTABLE}",

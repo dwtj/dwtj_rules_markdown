@@ -1,8 +1,8 @@
 workspace(name = "dwtj_rules_markdown")
 
-load('@dwtj_rules_markdown//markdown:defs.bzl', 'local_markdownlint_external_repository')
+load('@dwtj_rules_markdown//markdown:repositories.bzl', 'local_markdownlint_repository')
 
-local_markdownlint_external_repository(
+local_markdownlint_repository(
     name = 'local_markdownlint',
     config = '//:.markdownlint.json',
 )
