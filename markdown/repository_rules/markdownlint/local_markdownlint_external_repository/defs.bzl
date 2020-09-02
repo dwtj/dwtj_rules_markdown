@@ -15,12 +15,15 @@ _CONFIG_FILE_LABEL = 'markdownlint_config.json'
 #  repository.
 _MARKDOWNLINT_EXECUTABLE = 'markdownlint'
 
-def _symlink_markdownlint(repository_ctx):
-    link_from = repository_ctx.which('markdownlint')
-    if link_from == None:
-        fail('Failed to find an executable named `markdownlint` on PATH.')
+# This is the name used for the `node` executable *within* this external
+#  repository
+_NODE_EXECUTABLE = 'node'
 
-    link_to = _MARKDOWNLINT_EXECUTABLE
+def _symlink_which_exec_else_fail(repository_ctx, exec_name, link_to):
+    link_from = repository_ctx.which(exec_name)
+    if link_from == None:
+        fail('Failed to find an executable named `{}` on PATH.'.format(exec_name))
+
     repository_ctx.symlink(
         link_from,
         link_to,
@@ -40,7 +43,8 @@ def _symlink_config_file_if_any(repository_ctx):
     )
 
 def _local_markdownlint_external_repository_impl(repository_ctx):
-    _symlink_markdownlint(repository_ctx)
+    _symlink_which_exec_else_fail(repository_ctx, "node", _NODE_EXECUTABLE)
+    _symlink_which_exec_else_fail(repository_ctx, "markdownlint", _MARKDOWNLINT_EXECUTABLE)
     _symlink_config_file_if_any(repository_ctx)
 
     # Use a template to create a BUILD file in the root of the respository.
@@ -48,6 +52,9 @@ def _local_markdownlint_external_repository_impl(repository_ctx):
         'BUILD',
         repository_ctx.attr._build_file_template,
         substitutions = {
+            '{REPOSITORY_NAME}': repository_ctx.name,
+            '{NODE_EXECUTABLE}': _NODE_EXECUTABLE,
+            '{MARKDOWNLINT_EXECUTABLE}': _MARKDOWNLINT_EXECUTABLE,
             '{CONFIG_FILE}': _CONFIG_FILE_LABEL,
         },
         executable = False,
@@ -58,7 +65,7 @@ def _local_markdownlint_external_repository_impl(repository_ctx):
         'defs.bzl',
         repository_ctx.attr._defs_bzl_file_template,
         substitutions = {
-            # None needed yet.
+            '{REPOSITORY_NAME}': repository_ctx.name,
         },
         executable = False,
     )
@@ -78,13 +85,13 @@ local_markdownlint_external_repository = repository_rule(
         #
         #  I tried a more obvious approach first: specify these strings in the
         #  above calls to `repository_ctx.template()`. E.g.,
-        # 
+        #
         #      repository_ctx.template(
         #          'BUILD',
         #          '@dwtj_rules_markdown//.../template.BUILD',
         #          ...
         #      )
-        # 
+        #
         #  But this doesn't work. Specifically, such a string seems to be
         #  interpreted as paths relative to the external repository's root.
         '_build_file_template': attr.label(
@@ -95,5 +102,10 @@ local_markdownlint_external_repository = repository_rule(
             allow_single_file = True,
             default = '@dwtj_rules_markdown//markdown/repository_rules/markdownlint/local_markdownlint_external_repository:template.defs.bzl',
         ),
-    }
+    },
+    environ = [
+        # This repository is sensitive to changes to `$PATH` because it
+        # searches it to find executables (e.g. `markdownlint`).
+        "PATH",
+    ],
 )
