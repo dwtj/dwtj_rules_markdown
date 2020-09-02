@@ -14,7 +14,7 @@ workspace.
 4. Use a `local_markdownlint_external_repository` repository rule to find a copy
 of `markdownlint` and wrap it in a toolchain.
 
-**TODO(dwtj):** Give a link to a standalone complete example.
+See [`examples/use_local_markdownlint`][3] for a simple but complete example.
 
 ## Detailed Setup
 
@@ -88,7 +88,7 @@ actually adds lint actions to the Bazel action graph.
 used to declare instances of the `//markdown/toolchains/lint:toolchain_type`
 toolchain type. Such a toolchain instance includes the metadata needed to
 locate a `markdownlint` binary. (Some background on Bazel toolchains and
-toolchain resolution is provided [here][3].)
+toolchain resolution is provided [here][4].)
 
 **TODO(dwtj)**: Keep drafting this section.
 
@@ -108,4 +108,5 @@ to put processing of markdown files into Bazel aspects; the
 
 [1]: https://github.com/DavidAnson/markdownlint
 [2]: https://github.com/igorshubovych/markdownlint-cli
-[3]: https://docs.bazel.build/versions/3.3.0/toolchains.html
+[3]: https://github.com/dwtj/dwtj_rules_markdown/tree/main/examples/use_local_markdownlint
+[4]: https://docs.bazel.build/versions/3.3.0/toolchains.html
