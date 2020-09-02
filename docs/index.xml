@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Somebody&#39;s Bazel Markdown Rules</title>
+    <link>https://dwtj.github.io/dwtj_rules_markdown/</link>
+    <description>Recent content on Somebody&#39;s Bazel Markdown Rules</description>
+    <generator>Hugo -- gohugo.io</generator>
+    
+	<atom:link href="https://dwtj.github.io/dwtj_rules_markdown/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>local_markdownlint_repository</title>
+      <link>https://dwtj.github.io/dwtj_rules_markdown/local_markdownlint_repository/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://dwtj.github.io/dwtj_rules_markdown/local_markdownlint_repository/</guid>
+      <description>
+local_markdownlint_repository  local_markdownlint_repository(name, config)  ATTRIBUTES
+   Name Description Type Mandatory Default     name A unique name for this repository. Name required    config - Label required     </description>
+    </item>
+    
+    <item>
+      <title>markdown_library</title>
+      <link>https://dwtj.github.io/dwtj_rules_markdown/markdown_library/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://dwtj.github.io/dwtj_rules_markdown/markdown_library/</guid>
+      <description>markdown_library  markdown_library(name, deps, markdownlint_config, srcs)  ATTRIBUTES
+   Name Description Type Mandatory Default     name A unique name for this target. Name required    deps A list of labels providing MarkdownInfo (e.g. markdown_library target labels). List of labels optional []   markdownlint_config A markdownlint config file to use for linting srcs. This overrides a default config file provided from the markdownlint toolchain.</description>
+    </item>
+    
+    <item>
+      <title>markdownlint_aspect</title>
+      <link>https://dwtj.github.io/dwtj_rules_markdown/markdownlint_aspect/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://dwtj.github.io/dwtj_rules_markdown/markdownlint_aspect/</guid>
+      <description>
+markdownlint_aspect  markdownlint_aspect(name)  ASPECT ATTRIBUTES
+ATTRIBUTES
+   Name Description Type Mandatory Default     name A unique name for this target. Name required     </description>
+    </item>
+    
+    <item>
+      <title>markdownlint_toolchain</title>
+      <link>https://dwtj.github.io/dwtj_rules_markdown/markdownlint_toolchain/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://dwtj.github.io/dwtj_rules_markdown/markdownlint_toolchain/</guid>
+      <description>
+markdownlint_toolchain  markdownlint_toolchain(name, config, markdownlint_executable, node_executable)  ATTRIBUTES
+   Name Description Type Mandatory Default     name A unique name for this target. Name required    config - Label optional None   markdownlint_executable - Label required    node_executable - Label required     </description>
+    </item>
+    
+  </channel>
+</rss>
