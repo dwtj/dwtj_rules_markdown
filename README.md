@@ -11,8 +11,8 @@ Start linting your Markdown source files in a few steps:
 workspace.
 2. Declare a `markdown_library` with some Markdown source files.
 3. Enable the `markdownlint_aspect` in your `.bazelrc`.
-4. Use a `known_remote_markdownlint_toolchains` repository rule to fetch
-`markdownlint` binaries.
+4. Use a `local_markdownlint_external_repository` repository rule to find a copy
+of `markdownlint` and wrap it in a toolchain.
 
 **TODO(dwtj):** Give a link to a standalone complete example.
 
@@ -22,7 +22,7 @@ workspace.
 
 Add something like this to your `WORKSPACE` file:
 
-```WORKSPACE
+```starlark
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
 DWTJ_RULES_MARKDOWN_COMMIT = "c555fe9dca1782c123ec8eda1fdba11345e9e5e7"
@@ -34,12 +34,13 @@ http_archive(
     strip_prefix = "dwtj_rules_markdown-{}".format(DWTJ_RULES_MARKDOWN_COMMIT),
     url = "https://github.com/dwtj/dwtj_rules_markdown/archive/{}.zip".format(DWTJ_RULES_MARKDOWN_COMMIT),
 )
+```
 
 ### Step 2. Declare a `markdown_library`
 
 Add something like this to your `BUILD` files:
 
-```BUILD
+```starlark
 load("@dwtj_rules_markdown//markdown:defs.bzl", "markdown_library")
 
 markdown_library(
@@ -63,7 +64,7 @@ build --aspects @dwtj_rules_markdown//markdown:defs.bzl%markdownlint_aspect
 
 Add this to your `WORKSPACE` file:
 
-```WORKSPACE
+```starlark
 local_markdownlint_external_repository(
     name = 'local_markdownlint',
 )
@@ -89,7 +90,7 @@ toolchain type. Such a toolchain instance includes the metadata needed to
 locate a `markdownlint` binary. (Some background on Bazel toolchains and
 toolchain resolution is provided [here][3].)
 
-**TODO(dwtj)**: KEep drafting this section.
+**TODO(dwtj)**: Keep drafting this section.
 
 ## Future Development Opportunities
 
