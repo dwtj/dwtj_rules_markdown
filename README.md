@@ -25,7 +25,6 @@ Add something like this to your `WORKSPACE` file:
 ```starlark
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
-
 DWTJ_RULES_MARKDOWN_COMMIT = "b32ad69255e8e81a1528f9b7a6d60c1bd9055950"
 DWTJ_RULES_MARKDOWN_SHA256 = "93a4affec2a1b66a38033af9385c3b9b749357218799b43d82428e0a9fd761dc"
 
@@ -58,7 +57,7 @@ markdown_library(
 Add this to your workspace's `.bazelrc` file:
 
 ```bazelrc
-build --aspects @dwtj_rules_markdown//markdown:defs.bzl%markdownlint_aspect
+build --aspects @dwtj_rules_markdown//markdown:aspects.bzl%markdownlint_aspect
 ```
 
 ### Step 4. Add A Markdown Lint Toolchain
@@ -74,11 +73,11 @@ echo '{}' > .markdownlint.json
 Add this to your `WORKSPACE` file:
 
 ```starlark
-load("@dwtj_rules_markdown//markdown:repositories.bzl")
+load("@dwtj_rules_markdown//markdown:repositories.bzl", "local_markdownlint_repository")
 
 local_markdownlint_repository(
     name = 'local_markdownlint',
-    config = "@//.markdownlint.json",
+    config = "@//:.markdownlint.json",
 )
 
 load('@local_markdownlint//:defs.bzl', 'register_local_markdownlint_toolchain')
