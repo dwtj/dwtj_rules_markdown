@@ -1,8 +1,15 @@
 workspace(name = 'use_local_markdownlint')
 
-local_repository(
-    name = 'dwtj_rules_markdown',
-    path = '../..',
+load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
+
+DWTJ_RULES_MARKDOWN_COMMIT = "3f85874c100580695483421cf59a4f2b61a32c38"
+DWTJ_RULES_MARKDOWN_SHA256 = "110ad7982b67d24c26d3faab6b01110afb179ed87eae0b25a3faa38420d2c0fe"
+
+http_archive(
+    name = "dwtj_rules_markdown",
+    sha256 = DWTJ_RULES_MARKDOWN_SHA256,
+    strip_prefix = "dwtj_rules_markdown-{}".format(DWTJ_RULES_MARKDOWN_COMMIT),
+    url = "https://github.com/dwtj/dwtj_rules_markdown/archive/{}.zip".format(DWTJ_RULES_MARKDOWN_COMMIT),
 )
 
 load('@dwtj_rules_markdown//markdown:defs.bzl', 'local_markdownlint_external_repository')

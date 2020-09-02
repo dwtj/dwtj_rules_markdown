@@ -25,8 +25,8 @@ Add something like this to your `WORKSPACE` file:
 ```starlark
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
-DWTJ_RULES_MARKDOWN_COMMIT = "c555fe9dca1782c123ec8eda1fdba11345e9e5e7"
-DWTJ_RULES_MARKDOWN_SHA256 = "f5ed694d7a3998e68f2d3648263e59d8dfd5a815f985909c343a94f6c534ed10"
+DWTJ_RULES_MARKDOWN_COMMIT = "3f85874c100580695483421cf59a4f2b61a32c38"
+DWTJ_RULES_MARKDOWN_SHA256 = "110ad7982b67d24c26d3faab6b01110afb179ed87eae0b25a3faa38420d2c0fe"
 
 http_archive(
     name = "dwtj_rules_markdown",
