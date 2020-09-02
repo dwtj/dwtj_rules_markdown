@@ -9,7 +9,7 @@ load(
 )
 
 # This is the name used for the config file *within* this external repository.
-_CONFIG_FILE_LABEL = 'markdownlint_config.json'
+_CONFIG_FILE = 'markdownlint_config.json'
 
 # This is the name used for the `markdownlint` executable *within* this external
 #  repository.
@@ -35,7 +35,7 @@ def _symlink_config_file_if_any(repository_ctx):
         # No config file.
         return
 
-    link_to = _CONFIG_FILE_LABEL
+    link_to = _CONFIG_FILE
 
     repository_ctx.symlink(
         link_from,
@@ -55,7 +55,7 @@ def _local_markdownlint_external_repository_impl(repository_ctx):
             '{REPOSITORY_NAME}': repository_ctx.name,
             '{NODE_EXECUTABLE}': _NODE_EXECUTABLE,
             '{MARKDOWNLINT_EXECUTABLE}': _MARKDOWNLINT_EXECUTABLE,
-            '{CONFIG_FILE}': _CONFIG_FILE_LABEL,
+            '{CONFIG_FILE}': _CONFIG_FILE,
         },
         executable = False,
     )
@@ -75,11 +75,13 @@ local_markdownlint_external_repository = repository_rule(
     local = True,
     attrs = {
         'config': attr.label(
+            # TODO(dwtj): Make this attribute not mandatory and create sensible
+            #  default behavior.
+            mandatory = True,
             allow_single_file = SUPPORTED_MARKDOWNLINT_CONFIG_FILE_EXTENSIONS,
-            default = None,
         ),
 
-        # NB(dwtj): The `_build_file_template` and `_defs_bzl_file_template`
+        # NOTE(dwtj): The `_build_file_template` and `_defs_bzl_file_template`
         #  are attributes in order to provide these template files from the
         #  `@dwtj_rules_markdown` rules repository.
         #

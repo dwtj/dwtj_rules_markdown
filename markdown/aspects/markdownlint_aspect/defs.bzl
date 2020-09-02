@@ -37,7 +37,7 @@ def _markdownlint_aspect_impl(target, aspect_ctx):
     srcs = target[MarkdownInfo].direct_source_files
     target_config_file = target[MarkdownInfo].markdownlint_config_file
 
-    # Override `config_file` with target's config file (if any).
+    # Override the toolchain's config file with target's config file (if any).
     config_file = target_config_file \
             if target_config_file != None \
             else toolchain_config_file
