@@ -11,8 +11,8 @@ Start linting your Markdown source files in a few steps:
 workspace.
 2. Declare a `markdown_library` with some Markdown source files.
 3. Enable the `markdownlint_aspect` in your `.bazelrc`.
-4. Use a `local_markdownlint_external_repository` repository rule to find a copy
-of `markdownlint` and wrap it in a toolchain.
+4. Use a `local_markdownlint_repository` repository rule to find a copy of
+`markdownlint` and wrap it in a toolchain.
 
 See [`examples/use_local_markdownlint`][3] for a simple but complete example.
 
@@ -25,8 +25,9 @@ Add something like this to your `WORKSPACE` file:
 ```starlark
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
-DWTJ_RULES_MARKDOWN_COMMIT = "3f85874c100580695483421cf59a4f2b61a32c38"
-DWTJ_RULES_MARKDOWN_SHA256 = "110ad7982b67d24c26d3faab6b01110afb179ed87eae0b25a3faa38420d2c0fe"
+
+DWTJ_RULES_MARKDOWN_COMMIT = "b32ad69255e8e81a1528f9b7a6d60c1bd9055950"
+DWTJ_RULES_MARKDOWN_SHA256 = "93a4affec2a1b66a38033af9385c3b9b749357218799b43d82428e0a9fd761dc"
 
 http_archive(
     name = "dwtj_rules_markdown",
@@ -62,11 +63,22 @@ build --aspects @dwtj_rules_markdown//markdown:defs.bzl%markdownlint_aspect
 
 ### Step 4. Add A Markdown Lint Toolchain
 
+Create a [`markdownlint-cli` config file][4] in JSON format for your toolchain
+to use by default. To use `markdownlint-cli`'s default behavior, just write the
+empty object to this file. E.g.,
+
+```sh
+echo '{}' > .markdownlint.json
+```
+
 Add this to your `WORKSPACE` file:
 
 ```starlark
-local_markdownlint_external_repository(
+load("@dwtj_rules_markdown//markdown:repositories.bzl")
+
+local_markdownlint_repository(
     name = 'local_markdownlint',
+    config = "@//.markdownlint.json",
 )
 
 load('@local_markdownlint//:defs.bzl', 'register_local_markdownlint_toolchain')
@@ -88,7 +100,7 @@ actually adds lint actions to the Bazel action graph.
 used to declare instances of the `//markdown/toolchains/lint:toolchain_type`
 toolchain type. Such a toolchain instance includes the metadata needed to
 locate a `markdownlint` binary. (Some background on Bazel toolchains and
-toolchain resolution is provided [here][4].)
+toolchain resolution is provided [here][5].)
 
 **TODO(dwtj)**: Keep drafting this section.
 
@@ -109,4 +121,5 @@ to put processing of markdown files into Bazel aspects; the
 [1]: https://github.com/DavidAnson/markdownlint
 [2]: https://github.com/igorshubovych/markdownlint-cli
 [3]: https://github.com/dwtj/dwtj_rules_markdown/tree/main/examples/use_local_markdownlint
-[4]: https://docs.bazel.build/versions/3.3.0/toolchains.html
+[4]: https://github.com/igorshubovych/markdownlint-cli/blob/5d2a7420e4afe22ec6f93c87dc1f23adb42f0241/README.md
+[5]: https://docs.bazel.build/versions/3.3.0/toolchains.html
