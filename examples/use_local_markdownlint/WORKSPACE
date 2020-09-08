@@ -2,8 +2,8 @@ workspace(name = 'use_local_markdownlint')
 
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
-DWTJ_RULES_MARKDOWN_COMMIT = "b32ad69255e8e81a1528f9b7a6d60c1bd9055950"
-DWTJ_RULES_MARKDOWN_SHA256 = "93a4affec2a1b66a38033af9385c3b9b749357218799b43d82428e0a9fd761dc"
+DWTJ_RULES_MARKDOWN_COMMIT = "5fcac481becb6e57c7240ea42652ad9ddef36181"
+DWTJ_RULES_MARKDOWN_SHA256 = "b4250fc7c13b55df27507e8d53da4fab61cfdc7c3f4b6002a8a312796f678a91"
 
 http_archive(
     name = "dwtj_rules_markdown",
