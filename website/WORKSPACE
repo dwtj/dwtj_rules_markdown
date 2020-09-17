@@ -40,10 +40,10 @@ rules_pkg_dependencies()
 # CONFIGURE `@dwtj_rules_hugo` #################################################
 #
 # NOTE(dwtj): We use this version of these rules because it is the latest
-#  release as of 2020-09-01.
+#  release as of 2020-09-17.
 
-DWTJ_RULES_HUGO_SHA256 = "f230b439f52f145feddfe95f05a15cc0645fb32a8464375d55c2fb6831f0be4b"
-DWTJ_RULES_HUGO_COMMIT = "e8a3e8c595494bc78a6dc38840c1a9d48c4df3a2"
+DWTJ_RULES_HUGO_SHA256 = "2f4810066da1de9784cb19f84de421de5257c329227b8727a249109161789b7e"
+DWTJ_RULES_HUGO_COMMIT = "da519b44c817c04f670972c9ee615e5536fefa80"
 
 http_archive(
     name = "dwtj_rules_hugo",

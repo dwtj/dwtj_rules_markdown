@@ -3,6 +3,7 @@ title = "Somebody's Bazel Markdown Rules"
 
 [params]
   AuthorName = "David Johnston"
+  HeaderBrandName = "Markdown Bazel Rules"
   GitHubUserName = "dwtj"
   GitHubRepositoryName = "dwtj_rules_markdown"
   GitHubUserPortraitUrl = "https://avatars0.githubusercontent.com/u/2457848?s=400&u=e0cfa4b84f65f4fb6f73e6bc39762d82b85cb58c&v=4"
